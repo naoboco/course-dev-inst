@@ -24,6 +24,7 @@ if a > b:
 
 #exercice 8
 my_name ="Naomie"
+user_name = input ('Please state your name: ')
 if user_name == my_name:
     print("only one of us can be called this name prepare to die")
 else:
