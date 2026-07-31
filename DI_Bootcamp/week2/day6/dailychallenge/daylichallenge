@@ -1,0 +1,26 @@
+//daily challenge 1
+let sentence = "The movie is not that bad, I like it";
+
+let wordNot = sentence.indexOf("not");
+let wordBad = sentence.indexOf("bad");
+
+if (wordNot !== -1 && wordBad !== -1 && wordBad > wordNot) {
+    const wordsToReplace = sentence.slice(wordNot, wordBad + 3);
+    sentence = sentence.replace(wordsToReplace, "good");
+
+    console.log(sentence);
+} else {
+    console.log(sentence);
+}
+
+//daily  challenge 2 
+
+for (let row = 1; row <= 6; row++) {
+    let pattern = "";
+
+    for (let star = 1; star <= row; star++) {
+        pattern += "* ";
+    }
+
+    console.log(pattern.trim());
+}
