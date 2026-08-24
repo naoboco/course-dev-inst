@@ -1,0 +1,85 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background-color: #ff4f61;
+    font-family: Arial, sans-serif;
+}
+
+.todo {
+    width: 100%;
+    padding-top: 30px;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 32px;
+}
+
+form {
+    width: 380px;
+    height: 60px;
+    margin: 20px auto;
+    display: flex;
+    background-color: white;
+}
+
+#taskInput {
+    flex: 1;
+    border: none;
+    padding: 15px;
+    font-size: 20px;
+    outline: none;
+}
+
+form button {
+    border: none;
+    background-color: white;
+    color: #5da5ff;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+.listTasks {
+    width: 380px;
+    margin: auto;
+    background-color: white;
+    padding: 25px 35px;
+}
+
+.task {
+    display: flex;
+    align-items: center;
+    min-height: 50px;
+    border-bottom: 1px solid #69a9ff;
+}
+
+.deleteButton {
+    width: 22px;
+    height: 22px;
+    border: none;
+    background-color: #ff4f61;
+    color: white;
+    cursor: pointer;
+    margin-right: 6px;
+}
+
+.task input {
+    margin-right: 5px;
+}
+
+.task label {
+    color: #455a64;
+    font-size: 18px;
+}
+
+.task.done label {
+    color: red;
+    text-decoration: line-through;
+}
