@@ -3,7 +3,7 @@ values = [10, 20, 30]
 
 
 def convert_lists_to_dictionary(keys_list, values_list):
-    pass
+    return dict(zip(keys_list, values_list))
 
 
 family = {
@@ -15,7 +15,11 @@ family = {
 
 
 def get_ticket_price(age):
-    pass
+    if age < 3:
+        return 0
+    elif age <= 12:
+        return 10
+    return 15
 
 
 def calculate_family_total(family_members):
@@ -45,22 +49,32 @@ brand = {
 
 
 def update_zara_brand(brand_data):
-    pass
+    brand_data["number_stores"] = 2
+    brand_data["country_creation"] = "Spain"
+
+    if "Desigual" not in brand_data["international_competitors"]:
+        brand_data["international_competitors"].append("Desigual")
+
+    if "creation_date" in brand_data:
+        del brand_data["creation_date"]
+
+    return brand_data
 
 
 users = ["Mickey", "Minnie", "Donald", "Ariel", "Pluto"]
 
 
 def characters_to_indexes(characters):
-    pass
+    return {character: index for index, character in enumerate(characters)}
 
 
 def indexes_to_characters(characters):
-    pass
+    return {index: character for index, character in enumerate(characters)}
 
 
 def sorted_characters_to_indexes(characters):
-    pass
+    sorted_characters = sorted(characters)
+    return {character: index for index, character in enumerate(sorted_characters)}
 
 
 def check_exercise_1():
