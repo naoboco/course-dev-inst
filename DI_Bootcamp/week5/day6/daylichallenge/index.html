@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GIF Search</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <h1>Find a random GIF</h1>
+
+    <form id="gif-form">
+      <label for="api-key">Giphy API key</label>
+      <input id="api-key" name="api-key" type="password" autocomplete="off" required>
+      <label for="category">Choose a category</label>
+      <div class="search-row">
+        <input id="category" name="category" type="text" placeholder="For example: sun" required>
+        <button type="submit">Search</button>
+      </div>
+    </form>
+
+    <p id="message" role="status" aria-live="polite"></p>
+    <button id="delete-all" class="delete-all" type="button">Delete all GIFs</button>
+    <section id="gif-list" aria-label="Search results"></section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
