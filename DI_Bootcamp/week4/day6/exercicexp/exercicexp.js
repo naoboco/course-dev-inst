@@ -99,6 +99,7 @@ console.log(farmerCow.sound("Moooo"));
 
 // resultat en gros
 // false
+
 // false
 // 4
 // 4
