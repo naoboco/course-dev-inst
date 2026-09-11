@@ -3,42 +3,456 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="style.css">
+    <title>AI Tic Tac Toe</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: #111827;
+            color: white;
+        }
+
+        .game {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 42px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        .selected {
+            background: #22c55e;
+            color: white;
+        }
+
+        #status {
+            min-height: 24px;
+            font-size: 20px;
+        }
+
+        #board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 8px;
+            justify-content: center;
+            margin: 25px 0;
+        }
+
+        .cell {
+            width: 100px;
+            height: 100px;
+            background: white;
+            color: #111827;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 60px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .cell:hover {
+            background: #e5e7eb;
+        }
+
+        #restart {
+            display: none;
+            background: #ef4444;
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
-    <main>
+
+    <div class="game">
+
         <h1>Tic Tac Toe</h1>
 
-        <section class="settings" aria-label="Game settings">
-            <div>
-                <h2>Choose your symbol</h2>
-                <button class="choice symbol" data-symbol="X">X</button>
-                <button class="choice symbol" data-symbol="O">O</button>
-            </div>
-            <div>
-                <h2>Choose a level</h2>
-                <button class="choice level active" data-level="easy">Easy</button>
-                <button class="choice level" data-level="hard">Hard</button>
-            </div>
-        </section>
+        <div id="setup">
 
-        <p id="status">Choose X or O to start.</p>
+            <h2>Choose your symbol</h2>
 
-        <div id="board" aria-label="Tic Tac Toe board">
-            <button class="cell" data-index="0" aria-label="Top left"></button>
-            <button class="cell" data-index="1" aria-label="Top middle"></button>
-            <button class="cell" data-index="2" aria-label="Top right"></button>
-            <button class="cell" data-index="3" aria-label="Middle left"></button>
-            <button class="cell" data-index="4" aria-label="Center"></button>
-            <button class="cell" data-index="5" aria-label="Middle right"></button>
-            <button class="cell" data-index="6" aria-label="Bottom left"></button>
-            <button class="cell" data-index="7" aria-label="Bottom middle"></button>
-            <button class="cell" data-index="8" aria-label="Bottom right"></button>
+            <div class="buttons">
+                <button class="symbol-btn" data-symbol="X">X</button>
+                <button class="symbol-btn" data-symbol="O">O</button>
+            </div>
+
+            <h2>Choose difficulty</h2>
+
+            <div class="buttons">
+                <button class="difficulty-btn" data-level="easy">
+                    Easy
+                </button>
+
+                <button class="difficulty-btn" data-level="hard">
+                    Hard
+                </button>
+            </div>
+
         </div>
 
-        <button id="restart">Restart game</button>
-    </main>
-    <script src="script.js"></script>
+        <p id="status">
+            Choose your symbol and difficulty
+        </p>
+
+        <div id="board">
+            <div class="cell" data-index="0"></div>
+            <div class="cell" data-index="1"></div>
+            <div class="cell" data-index="2"></div>
+            <div class="cell" data-index="3"></div>
+            <div class="cell" data-index="4"></div>
+            <div class="cell" data-index="5"></div>
+            <div class="cell" data-index="6"></div>
+            <div class="cell" data-index="7"></div>
+            <div class="cell" data-index="8"></div>
+        </div>
+
+        <button id="restart">
+            Restart Game
+        </button>
+
+    </div>
+
+
+    <script>
+
+        const winCombos = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [6, 4, 2]
+        ];
+
+        let board = Array(9).fill("");
+
+        let playerSymbol = "";
+        let computerSymbol = "";
+        let difficulty = "";
+        let gameOver = false;
+
+        const cells = [...document.querySelectorAll(".cell")];
+
+        const symbolButtons =
+            [...document.querySelectorAll(".symbol-btn")];
+
+        const difficultyButtons =
+            [...document.querySelectorAll(".difficulty-btn")];
+
+        const status =
+            document.querySelector("#status");
+
+        const restartButton =
+            document.querySelector("#restart");
+
+
+        symbolButtons.forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                playerSymbol = button.dataset.symbol;
+
+                computerSymbol =
+                    playerSymbol === "X" ? "O" : "X";
+
+                symbolButtons.forEach(btn =>
+                    btn.classList.remove("selected")
+                );
+
+                button.classList.add("selected");
+
+                updateStatus();
+            });
+
+        });
+
+
+        difficultyButtons.forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                difficulty =
+                    button.dataset.level;
+
+                difficultyButtons.forEach(btn =>
+                    btn.classList.remove("selected")
+                );
+
+                button.classList.add("selected");
+
+                updateStatus();
+            });
+
+        });
+
+
+        const updateStatus = () => {
+
+            if (playerSymbol && difficulty) {
+
+                status.textContent =
+                    `You are ${playerSymbol} - ${difficulty} mode`;
+
+            }
+
+        };
+
+
+        const getAvailableCells = () => {
+
+            return board
+                .map((value, index) =>
+                    value === "" ? index : null
+                )
+                .filter(index =>
+                    index !== null
+                );
+
+        };
+
+
+        const checkWinner = symbol => {
+
+            return winCombos.some(combo =>
+                combo.every(index =>
+                    board[index] === symbol
+                )
+            );
+
+        };
+
+
+        const checkGameResult = () => {
+
+            if (checkWinner(playerSymbol)) {
+
+                status.textContent =
+                    "You win!";
+
+                endGame();
+
+                return true;
+            }
+
+            if (checkWinner(computerSymbol)) {
+
+                status.textContent =
+                    "Computer wins!";
+
+                endGame();
+
+                return true;
+            }
+
+            if (getAvailableCells().length === 0) {
+
+                status.textContent =
+                    "Tie game!";
+
+                endGame();
+
+                return true;
+            }
+
+            return false;
+        };
+
+
+        const endGame = () => {
+
+            gameOver = true;
+
+            restartButton.style.display =
+                "inline-block";
+
+        };
+
+
+        const randomMove = () => {
+
+            const availableCells =
+                getAvailableCells();
+
+            return availableCells[
+                Math.floor(
+                    Math.random() *
+                    availableCells.length
+                )
+            ];
+
+        };
+
+
+        const findWinningMove = symbol => {
+
+            const availableCells =
+                getAvailableCells();
+
+            return availableCells.find(index => {
+
+                board[index] = symbol;
+
+                const wins =
+                    checkWinner(symbol);
+
+                board[index] = "";
+
+                return wins;
+
+            });
+
+        };
+
+
+        const hardMove = () => {
+
+            const winningMove =
+                findWinningMove(computerSymbol);
+
+            if (winningMove !== undefined) {
+                return winningMove;
+            }
+
+
+            const blockingMove =
+                findWinningMove(playerSymbol);
+
+            if (blockingMove !== undefined) {
+                return blockingMove;
+            }
+
+
+            if (board[4] === "") {
+                return 4;
+            }
+
+
+            return randomMove();
+
+        };
+
+
+        const computerMove = () => {
+
+            if (gameOver) return;
+
+            const index =
+                difficulty === "hard"
+                    ? hardMove()
+                    : randomMove();
+
+            if (index === undefined) return;
+
+            board[index] =
+                computerSymbol;
+
+            cells[index].textContent =
+                computerSymbol;
+
+            checkGameResult();
+
+        };
+
+
+        const playerMove = index => {
+
+            if (
+                gameOver ||
+                !playerSymbol ||
+                !difficulty ||
+                board[index] !== ""
+            ) {
+                return;
+            }
+
+            board[index] =
+                playerSymbol;
+
+            cells[index].textContent =
+                playerSymbol;
+
+            if (!checkGameResult()) {
+
+                setTimeout(
+                    computerMove,
+                    400
+                );
+
+            }
+
+        };
+
+
+        cells.forEach(cell => {
+
+            cell.addEventListener("click", () => {
+
+                const index =
+                    Number(cell.dataset.index);
+
+                playerMove(index);
+
+            });
+
+        });
+
+
+        restartButton.addEventListener("click", () => {
+
+            board =
+                Array(9).fill("");
+
+            gameOver =
+                false;
+
+            cells.forEach(cell => {
+
+                cell.textContent =
+                    "";
+
+            });
+
+            restartButton.style.display =
+                "none";
+
+            updateStatus();
+
+        });
+
+    </script>
+
 </body>
 </html>
