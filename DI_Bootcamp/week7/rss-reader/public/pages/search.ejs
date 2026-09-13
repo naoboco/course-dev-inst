@@ -1,0 +1,88 @@
+<%- include("../partials/head") %>
+
+<%- include("../partials/header") %>
+
+<div class="container mt-4">
+
+    <h1>Search Facts</h1>
+
+    <div class="row mt-4">
+
+        <div class="col-md-6">
+
+            <h3>Search by title</h3>
+
+            <form action="/search/title" method="POST">
+
+                <div class="mb-3">
+
+                    <input
+                        type="text"
+                        name="title"
+                        class="form-control"
+                        placeholder="Enter a title"
+                        required
+                    >
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    Search
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <h3>Search by category</h3>
+
+            <form action="/search/category" method="POST">
+
+                <div class="mb-3">
+
+                    <select
+                        name="category"
+                        class="form-select"
+                        required
+                    >
+
+                        <option value="">
+                            Choose a category
+                        </option>
+
+                        <% categories.forEach(category => { %>
+
+                            <option value="<%= category %>">
+                                <%= category %>
+                            </option>
+
+                        <% }) %>
+
+                    </select>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-success"
+                >
+                    Search
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<%- include("../partials/posts", { posts: posts }) %>
+
+<%- include("../partials/footer") %>

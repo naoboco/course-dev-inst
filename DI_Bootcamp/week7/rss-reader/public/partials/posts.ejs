@@ -1,0 +1,54 @@
+<div class="container mt-4">
+
+    <% if (posts.length === 0) { %>
+
+        <p>No posts to display.</p>
+
+    <% } %>
+
+    <% posts.forEach(post => { %>
+
+        <div class="post">
+
+            <h2>
+                <a
+                    href="<%= post.link %>"
+                    target="_blank"
+                >
+                    <%= post.title %>
+                </a>
+            </h2>
+
+            <p>
+                <strong>Publication date:</strong>
+                <%= post.pubDate || "Unknown" %>
+            </p>
+
+            <p>
+                <strong>Creator:</strong>
+                <%= post.creator || post["dc:creator"] || "Unknown" %>
+            </p>
+
+            <p>
+                <strong>Category:</strong>
+
+                <% if (post.categories && post.categories.length > 0) { %>
+
+                    <%= post.categories.join(", ") %>
+
+                <% } else { %>
+
+                    No category
+
+                <% } %>
+            </p>
+
+            <p>
+                <%= post.contentSnippet || post.content || "" %>
+            </p>
+
+        </div>
+
+    <% }) %>
+
+</div>
