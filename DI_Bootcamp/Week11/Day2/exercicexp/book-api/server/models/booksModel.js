@@ -2,7 +2,9 @@ const pool = require("../config/db");
 
 async function getAllBooks() {
     const result = await pool.query(
-        "SELECT * FROM public.books ORDER BY id"
+        `SELECT id, title, author, published_year AS "publishedYear"
+         FROM public.books
+         ORDER BY id`
     );
 
     return result.rows;
@@ -10,7 +12,9 @@ async function getAllBooks() {
 
 async function getBookById(id) {
     const result = await pool.query(
-        "SELECT * FROM public.books WHERE id = $1",
+        `SELECT id, title, author, published_year AS "publishedYear"
+         FROM public.books
+         WHERE id = $1`,
         [id]
     );
 
@@ -19,9 +23,9 @@ async function getBookById(id) {
 
 async function createBook(title, author, publishedYear) {
     const result = await pool.query(
-        `INSERT INTO public.books (title, author, publishedYear)
+        `INSERT INTO public.books (title, author, published_year)
          VALUES ($1, $2, $3)
-         RETURNING *`,
+         RETURNING id, title, author, published_year AS "publishedYear"`,
         [title, author, publishedYear]
     );
 
@@ -33,9 +37,9 @@ async function updateBook(id, title, author, publishedYear) {
         `UPDATE public.books
          SET title = $1,
              author = $2,
-             publishedYear = $3
+             published_year = $3
          WHERE id = $4
-         RETURNING *`,
+         RETURNING id, title, author, published_year AS "publishedYear"`,
         [title, author, publishedYear, id]
     );
 
@@ -46,7 +50,7 @@ async function deleteBook(id) {
     const result = await pool.query(
         `DELETE FROM public.books
          WHERE id = $1
-         RETURNING *`,
+         RETURNING id, title, author, published_year AS "publishedYear"`,
         [id]
     );
 
