@@ -2,7 +2,7 @@ const pool = require("../config/db");
 
 async function getAllPosts() {
     const result = await pool.query(
-        "SELECT * FROM posts ORDER BY id"
+        "SELECT * FROM public.posts ORDER BY id"
     );
 
     return result.rows;
@@ -10,7 +10,7 @@ async function getAllPosts() {
 
 async function getPostById(id) {
     const result = await pool.query(
-        "SELECT * FROM posts WHERE id = $1",
+        "SELECT * FROM public.posts WHERE id = $1",
         [id]
     );
 
@@ -19,7 +19,7 @@ async function getPostById(id) {
 
 async function createPost(title, content) {
     const result = await pool.query(
-        `INSERT INTO posts (title, content)
+        `INSERT INTO public.posts (title, content)
          VALUES ($1, $2)
          RETURNING *`,
         [title, content]
@@ -30,7 +30,7 @@ async function createPost(title, content) {
 
 async function updatePost(id, title, content) {
     const result = await pool.query(
-        `UPDATE posts
+        `UPDATE public.posts
          SET title = $1,
              content = $2
          WHERE id = $3
@@ -43,7 +43,7 @@ async function updatePost(id, title, content) {
 
 async function deletePost(id) {
     const result = await pool.query(
-        `DELETE FROM posts
+        `DELETE FROM public.posts
          WHERE id = $1
          RETURNING *`,
         [id]

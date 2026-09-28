@@ -4,7 +4,7 @@ async function getAllPosts(req, res, next) {
     try {
         const posts = await postsModel.getAllPosts();
 
-        res.json(posts);
+        res.status(200).json(posts);
     } catch (error) {
         next(error);
     }
@@ -12,9 +12,9 @@ async function getAllPosts(req, res, next) {
 
 async function getPostById(req, res, next) {
     try {
-        const post = await postsModel.getPostById(
-            req.params.id
-        );
+        const id = req.params.id;
+
+        const post = await postsModel.getPostById(id);
 
         if (!post) {
             return res.status(404).json({
@@ -22,7 +22,7 @@ async function getPostById(req, res, next) {
             });
         }
 
-        res.json(post);
+        res.status(200).json(post);
     } catch (error) {
         next(error);
     }
@@ -38,12 +38,12 @@ async function createPost(req, res, next) {
             });
         }
 
-        const post = await postsModel.createPost(
+        const newPost = await postsModel.createPost(
             title,
             content
         );
 
-        res.status(201).json(post);
+        res.status(201).json(newPost);
     } catch (error) {
         next(error);
     }
@@ -51,21 +51,28 @@ async function createPost(req, res, next) {
 
 async function updatePost(req, res, next) {
     try {
+        const id = req.params.id;
         const { title, content } = req.body;
 
-        const post = await postsModel.updatePost(
-            req.params.id,
+        if (!title || !content) {
+            return res.status(400).json({
+                message: "Title and content are required"
+            });
+        }
+
+        const updatedPost = await postsModel.updatePost(
+            id,
             title,
             content
         );
 
-        if (!post) {
+        if (!updatedPost) {
             return res.status(404).json({
                 message: "Post not found"
             });
         }
 
-        res.json(post);
+        res.status(200).json(updatedPost);
     } catch (error) {
         next(error);
     }
@@ -73,19 +80,19 @@ async function updatePost(req, res, next) {
 
 async function deletePost(req, res, next) {
     try {
-        const post = await postsModel.deletePost(
-            req.params.id
-        );
+        const id = req.params.id;
 
-        if (!post) {
+        const deletedPost = await postsModel.deletePost(id);
+
+        if (!deletedPost) {
             return res.status(404).json({
                 message: "Post not found"
             });
         }
 
-        res.json({
+        res.status(200).json({
             message: "Post deleted",
-            post
+            post: deletedPost
         });
     } catch (error) {
         next(error);
