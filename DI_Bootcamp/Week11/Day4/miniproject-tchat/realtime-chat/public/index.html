@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Chat</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app">
+
+        <section id="join-screen" class="screen active">
+            <div class="join-card">
+                <h1>Real-Time Chat</h1>
+                <p>Choose a username and a room</p>
+
+                <form id="join-form">
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Username"
+                        required
+                    >
+
+                    <select id="room" required>
+                        <option value="">Choose a room</option>
+                        <option value="general">General</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="node">Node.js</option>
+                        <option value="random">Random</option>
+                    </select>
+
+                    <button type="submit">
+                        Join Chat
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <section id="chat-screen" class="screen">
+            <div class="chat-container">
+
+                <aside class="sidebar">
+                    <h2 id="room-name">Room</h2>
+
+                    <h3>Active Users</h3>
+
+                    <ul id="users-list"></ul>
+
+                    <button id="leave-button">
+                        Leave Room
+                    </button>
+                </aside>
+
+                <main class="chat-main">
+
+                    <header class="chat-header">
+                        <div>
+                            <h2>Chat</h2>
+                            <p id="current-user"></p>
+                        </div>
+                    </header>
+
+                    <div id="messages" class="messages"></div>
+
+                    <form id="message-form" class="message-form">
+                        <input
+                            type="text"
+                            id="message-input"
+                            placeholder="Write a message..."
+                            autocomplete="off"
+                            required
+                        >
+
+                        <button type="submit">
+                            Send
+                        </button>
+                    </form>
+
+                </main>
+
+            </div>
+        </section>
+
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
