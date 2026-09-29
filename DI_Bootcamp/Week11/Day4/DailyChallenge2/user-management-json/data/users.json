@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": 1,
+    "first_name": "Naomie",
+    "last_name": "bocobza",
+    "email": "naomiebocobza@gmail.com",
+    "username": "naoboco",
+    "password": "$2b$10$E9Wr3CEeMb/iwIkihpwHJOkbAqlNcG8Opyl.GT7xloJm0VvPCIqXi"
+  }
+]
