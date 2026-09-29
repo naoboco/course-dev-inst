@@ -29,11 +29,15 @@ async function register(req, res, next) {
             user => user.username === username
         );
 
-        const passwordExists = await Promise.any(
-            users.map(async user => {
-                return bcrypt.compare(password, user.password);
-            })
-        ).catch(() => false);
+    const passwordChecks = await Promise.all(
+    users.map(user =>
+        bcrypt.compare(password, user.password)
+    )
+        );
+
+    const passwordExists = passwordChecks.some(
+    result => result === true
+        );
 
         if (usernameExists || passwordExists) {
             return res.status(409).json({
