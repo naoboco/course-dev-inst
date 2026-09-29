@@ -1,5 +1,6 @@
 import { Component } from "react";
 import ErrorBoundary from "./Components/ErrorBoundary";
+import Lifecycle from "./Components/Lifecycle";
 
 class BuggyCounter extends Component {
   constructor(props) {
@@ -28,58 +29,81 @@ class BuggyCounter extends Component {
     );
   }
 }
-//function App() {
-// return (
-  //<>
-     // <h2>Simulation 1</h2>
 
-     // <ErrorBoundary>
-       // <BuggyCounter />
-       // <BuggyCounter />
-      //</ErrorBoundary>
-   // </>
- // );
-//}
 
-///function App() {
-  // return (
-  //   <>
-  //     <h2>Simulation 2</h2>
+// ==============================
+// EXERCISE 1 - SIMULATION 1
+// ==============================
 
-  //     <ErrorBoundary>
-  //       <BuggyCounter />
-  //     </ErrorBoundary>
+// function App() {
+//   return (
+//     <>
+//       <h2>Simulation 1</h2>
+//
+//       <ErrorBoundary>
+//         <BuggyCounter />
+//         <BuggyCounter />
+//       </ErrorBoundary>
+//     </>
+//   );
+// }
 
-  //     <ErrorBoundary>
-  //       <BuggyCounter />
-  //     </ErrorBoundary>
-  //   </>
-  // );
-//}
+
+// ==============================
+// EXERCISE 1 - SIMULATION 2
+// ==============================
+
+// function App() {
+//   return (
+//     <>
+//       <h2>Simulation 2</h2>
+//
+//       <ErrorBoundary>
+//         <BuggyCounter />
+//       </ErrorBoundary>
+//
+//       <ErrorBoundary>
+//         <BuggyCounter />
+//       </ErrorBoundary>
+//     </>
+//   );
+// }
+
+
+// ==============================
+// EXERCISE 1 - SIMULATION 3
+// ==============================
+
 // function App() {
 //   return (
 //     <>
 //       <h2>Simulation 3</h2>
-
+//
 //       <BuggyCounter />
 //     </>
 //   );
 // }
-// import Lifecycle from "./Components/Lifecycle";
+
+
+// ==============================
+// EXERCISE 2 - LIFECYCLE
+// ==============================
 
 // function App() {
 //   return (
 //     <>
 //       <h2>Exercise 2 - Lifecycle</h2>
-
+//
 //       <Lifecycle />
 //     </>
 //   );
 // }
 
-export default App;
 
-import Lifecycle from "./Components/Lifecycle";
+// ==============================
+// EXERCISE 3 - LIFECYCLE #2
+// VERSION ACTIVE
+// ==============================
 
 function App() {
   return (
