@@ -1,6 +1,7 @@
 import Greeting from "./Components/Greeting";
 import Counter from "./Components/Counter";
 import UserCard from "./Components/UserCard";
+import UserList from "./Components/UserList";
 
 function App() {
   return (
@@ -27,6 +28,8 @@ function App() {
       />
 
       <UserCard />
+
+      <UserList />
     </div>
   );
 }
