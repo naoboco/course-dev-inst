@@ -1,3 +1,4 @@
+export {};
 type User = {
     type: "user";
     name: string;
