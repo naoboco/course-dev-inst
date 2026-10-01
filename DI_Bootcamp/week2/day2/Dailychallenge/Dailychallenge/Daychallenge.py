@@ -1,41 +1,22 @@
+import re
+
 MATRIX_STR = '''
 7ir
 Tsi
 h%x
 i ?
-sM#
+sM# 
 $a 
 #t%'''
 
+matrix = [list(row) for row in MATRIX_STR.strip("\n").splitlines()]
 
-# Step 1: Convert the string into a 2D list
-rows = MATRIX_STR.strip("\n").split("\n")
-matrix = [list(row) for row in rows]
+message = ""
 
+for col in range(len(matrix[0])):
+    for row in range(len(matrix)):
+        message += matrix[row][col]
 
-# Step 2: Read the matrix column by column
-column_message = ""
+decoded_message = re.sub(r"(?<=[a-zA-Z])[^a-zA-Z]+(?=[a-zA-Z])", " ", message)
 
-for column_index in range(len(matrix[0])):
-    for row_index in range(len(matrix)):
-        column_message += matrix[row_index][column_index]
-
-
-# Steps 3 and 4: Keep letters and replace symbol groups with spaces
-decoded_message = ""
-symbols_found = False
-
-for character in column_message:
-    if character.isalpha():
-        if symbols_found and decoded_message:
-            decoded_message += " "
-
-        decoded_message += character
-        symbols_found = False
-
-    elif decoded_message:
-        symbols_found = True
-
-
-# Step 5: Print the secret message
 print(decoded_message)
