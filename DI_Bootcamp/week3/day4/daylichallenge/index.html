@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mad Libs Game</title>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Mad Libs</h1>
+
+    <form id="libform">
+        <label for="noun">Noun:</label>
+        <input type="text" id="noun" required>
+        <br>
+
+        <label for="adjective">Adjective:</label>
+        <input type="text" id="adjective" required>
+        <br>
+
+        <label for="person">Someone's Name:</label>
+        <input type="text" id="person" required>
+        <br>
+
+        <label for="verb">Verb:</label>
+        <input type="text" id="verb" required>
+        <br>
+
+        <label for="place">A place:</label>
+        <input type="text" id="place" required>
+        <br>
+
+        <button type="submit" id="lib-button">Lib it!</button>
+        <button type="button" id="shuffle-button" hidden>Shuffle Story</button>
+    </form>
+
+    <p>Generated story: <span id="story"></span></p>
+</body>
+</html>
