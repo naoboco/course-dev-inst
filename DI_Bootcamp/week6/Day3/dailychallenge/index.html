@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <main class="converter">
+        <h1>Currency Converter</h1>
+        <p>Convert currencies using live exchange rates.</p>
+
+        <form id="converter-form">
+            <label for="amount">Amount</label>
+            <input id="amount" type="number" min="0.01" step="any" value="100" required>
+
+            <label for="from">From</label>
+            <select id="from" required></select>
+
+            <button id="switch" type="button">⇅ Switch Currencies</button>
+
+            <label for="to">To</label>
+            <select id="to" required></select>
+
+            <button id="convert" type="submit" disabled>Convert</button>
+        </form>
+
+        <h2 id="result" aria-live="polite"></h2>
+        <p id="rate"></p>
+        <p id="message">Loading currencies...</p>
+    </main>
+</body>
+</html>
