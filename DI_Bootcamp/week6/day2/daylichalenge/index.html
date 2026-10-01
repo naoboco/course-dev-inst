@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random GIF Generator</title>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Random GIF Generator</h1>
+
+    <form id="gif-form">
+        <input
+            type="text"
+            id="category"
+            placeholder="Enter a GIF category"
+            required
+        >
+        <button type="submit">Search GIF</button>
+    </form>
+
+    <br>
+
+    <button id="delete-all" type="button">DELETE ALL</button>
+
+    <p id="message"></p>
+
+    <div id="gif-container"></div>
+</body>
+</html>
